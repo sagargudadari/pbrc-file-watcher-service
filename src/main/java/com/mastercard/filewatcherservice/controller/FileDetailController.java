@@ -30,7 +30,7 @@ public class FileDetailController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<FileDetail> updateFileDetails(@PathVariable(name="id") Long fileId,
+    public ResponseEntity<FileDetail> updateFileDetails(@PathVariable(name = "id") Long fileId,
                                                         @Valid @RequestBody FileDetail fileDetail)
             throws ResourceNotFoundException {
 

@@ -22,10 +22,10 @@ import java.io.File;
 @Configuration
 @EnableIntegration
 public class FilePollingIntegrationFlow {
- 
+
     @Value("${ftp.read.dir}")
     private String ftpReadDir;
- 
+
     @Bean
     public MessageChannel fileInputChannel() {
         return new DirectChannel();

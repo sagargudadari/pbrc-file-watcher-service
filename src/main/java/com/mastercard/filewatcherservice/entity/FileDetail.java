@@ -29,12 +29,16 @@ public class FileDetail implements Serializable {
 
     private String location;
 
+    private String targetTableName;
+
+    private String jobExecutionId;
+
     @Enumerated(EnumType.STRING)
     private FileStatus status;
 
     @CreationTimestamp
-    private Date created_date;
+    private Date createdDate;
 
     @UpdateTimestamp
-    private Date updated_date;
+    private Date updatedDate;
 }
