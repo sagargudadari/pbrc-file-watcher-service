@@ -23,6 +23,8 @@ public class FileDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String recordCount;
+
     private String name;
 
     private String type;

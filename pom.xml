@@ -8,16 +8,32 @@
     <artifactId>fpbrc-file-watcher-service</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!--<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.5.RELEASE</version>
+		<relativePath/>
+    </parent>-->
+
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.mastercard.refarch</groupId>
+        <artifactId>ref-arch-starter-parent</artifactId>
+        <version>5.2.3</version>
     </parent>
 
+    <!--<scm>
+        <connection>scm:git:http://globalrepository.mclocal.int/stash/scm/tgk/flextp-seed-data-query-tool.git</connection>
+        <url>http://globalrepository.mclocal.int/stash/scm/tgk/flextp-seed-data-query-tool.git</url>
+        <developerConnection>scm:git:http://globalrepository.mclocal.int/stash/scm/tgk/flextp-seed-data-query-tool.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>-->
+
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <runtime.version>7.15.0.Final</runtime.version>
+        <kie.version>6.1.0.Final</kie.version>
+        <oracle.version>11.2.0</oracle.version>
     </properties>
 
     <dependencies>
@@ -35,6 +51,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
@@ -43,62 +63,41 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.oracle.ojdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>19.3.0.0</version>
+        </dependency>-->
+        <!-- Oracle Driver -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>${oracle.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.kie</groupId>
-            <artifactId>kie-spring</artifactId>
-            <version>${runtime.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-tx</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.drools</groupId>
-            <artifactId>drools-compiler</artifactId>
-            <version>${runtime.version}</version>
+            <artifactId>kie-ci</artifactId>
+            <version>${kie.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
-            <version>1.14</version>
+            <version>1.9</version>
         </dependency>
     </dependencies>
 
@@ -111,4 +110,38 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>artifactory</id>
+            <name>Artifactory Releases</name>
+            <url>https://artifacts.mastercard.int/artifactory/releases</url>
+        </repository>
+        <repository>
+            <id>artifactory-snapshots</id>
+            <name>Artifactory Snapshots</name>
+            <url>https://artifacts.mastercard.int/artifactory/snapshots</url>
+        </repository>
+        <repository>
+            <id>artifactory-all</id>
+            <name>Artifactory All</name>
+            <url>https://artifacts.mastercard.int/artifactory/maven-all</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>artifactory</id>
+            <name>Artifactory Releases</name>
+            <url>https://artifacts.mastercard.int/artifactory/releases</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>artifactory-snapshots</id>
+            <name>Artifactory Snapshots</name>
+            <url>https://artifacts.mastercard.int/artifactory/snapshots</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

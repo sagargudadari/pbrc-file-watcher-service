@@ -7,9 +7,9 @@ import com.mastercard.filewatcherservice.exception.ResourceNotFoundException;
 import com.mastercard.filewatcherservice.model.TableNameCheckResult;
 import com.mastercard.filewatcherservice.repository.FileDetailRepository;
 import com.mastercard.filewatcherservice.utils.UntarArchiveUtils;
-import com.mastercard.filewatcherservice.utils.KieUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,10 +39,13 @@ public class FileDetailService implements MessageHandler {
 
     private IndexFileService indexFileService;
 
+    private final KieContainer kieContainer;
+
     @Autowired
-    public FileDetailService(FileDetailRepository fileDetailRepository, IndexFileService indexFileService) {
+    public FileDetailService(FileDetailRepository fileDetailRepository, IndexFileService indexFileService, KieContainer kieContainer) {
         this.fileDetailRepository = fileDetailRepository;
         this.indexFileService = indexFileService;
+        this.kieContainer = kieContainer;
     }
 
     @Override
@@ -69,7 +72,7 @@ public class FileDetailService implements MessageHandler {
                 }
             } else {
                 log.info("Need to untar file " + file.getName());
-                UntarArchiveUtils.unTarFile(file.getAbsolutePath(), new File(ftpReadDir),file.getName());
+                UntarArchiveUtils.unTarFile(file.getAbsolutePath(), new File(ftpReadDir));
             }
         } else {
             log.info("Process completed. Ignoring as file name contains 'TEMP' keyword {}", file.getName());
@@ -78,36 +81,39 @@ public class FileDetailService implements MessageHandler {
 
     private FileDetail transformAndPersistFileDetail(File file) throws ResourceNotFoundException {
         Optional<FileDetail> fileDetail = fileDetailRepository.findByName(file.getName());
-        if (fileDetail.isPresent()) {
+        if (fileDetail.isPresent() && FileStatus.COMPLETED == fileDetail.get().getStatus()) {
             log.info("Ignore persist. Already exists in database File name : {}", file.getName());
             return fileDetail.get();
         }
 
-        FileDetail buildFileDetail = transformFileDetail(file);
-        return persistFileDetail(buildFileDetail);
+        fileDetail = Optional.ofNullable(transformFileDetail(file, fileDetail.get()));
+        return persistFileDetail(fileDetail);
     }
 
-    private FileDetail transformFileDetail(File file) throws ResourceNotFoundException {
+    private FileDetail transformFileDetail(File file, FileDetail fileDetail) throws ResourceNotFoundException {
         String[] splitName = file.getName().split(typeRegexPattern);
         TableNameCheckResult tableNameCheckResult = new TableNameCheckResult();
         tableNameCheckResult.setType(splitName[0].concat(splitName[splitName.length - 1]));
 
-        KieSession kieSession = KieUtils.getKieContainer().newKieSession();
+        KieSession kieSession = kieContainer.newKieSession("rulesSession");
         kieSession.insert(tableNameCheckResult);
         kieSession.fireAllRules();
+        kieSession.dispose();
         log.info("File type : {} and Table name : {}", tableNameCheckResult.getType(),
                 tableNameCheckResult.getTargetTableName());
-        kieSession.dispose();
 
         Optional.ofNullable(tableNameCheckResult.getTargetTableName())
                 .orElseThrow(() -> new ResourceNotFoundException("No suitable table name found"));
 
         return FileDetail.builder()
+                .id(fileDetail.getId())
                 .location(file.getAbsolutePath())
                 .name(file.getName())
+                .recordCount(fileDetail.getRecordCount())
                 .type(tableNameCheckResult.getType())
                 .targetTableName(tableNameCheckResult.getTargetTableName())
                 .status(FileStatus.READY)
+                .createdDate(fileDetail.getCreatedDate())
                 .build();
     }
 
@@ -125,9 +131,9 @@ public class FileDetailService implements MessageHandler {
         }
     }
 
-    private FileDetail persistFileDetail(FileDetail fileDetail) {
-        log.info("Persist file detail into database File Name : {}", fileDetail.getName());
-        return fileDetailRepository.save(fileDetail);
+    private FileDetail persistFileDetail(Optional<FileDetail> fileDetail) {
+        log.info("Persist file detail into database File Name : {}", fileDetail.get().getName());
+        return fileDetailRepository.save(fileDetail.get());
     }
 
     public FileDetail updateFileDetail(Long fileId, FileDetail fileStatus) throws ResourceNotFoundException {

@@ -1,0 +1,16 @@
+package rules
+import com.mastercard.filewatcherservice.model.TableNameCheckResult;
+
+rule "Get table name GCMS_TRANSACTION_DETAIL"
+	when
+		tableNameCheckResultObject: TableNameCheckResult(type=="GCMSBA")
+	then
+		tableNameCheckResultObject.setTargetTableName("GCMS_TRANSACTION_DETAIL");
+	end
+
+rule "Get table name GCMS_BILLING_EVENT_DETAIL"
+	when
+		tableNameCheckResultObject: TableNameCheckResult(type=="GCMSBE")
+	then
+		tableNameCheckResultObject.setTargetTableName("GCMS_BILLING_EVENT_DETAIL");
+	end

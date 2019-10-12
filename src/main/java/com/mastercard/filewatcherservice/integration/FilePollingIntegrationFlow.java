@@ -1,4 +1,4 @@
-package com.mastercard.filewatcherservice.dsl;
+package com.mastercard.filewatcherservice.integration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

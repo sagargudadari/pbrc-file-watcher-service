@@ -15,7 +15,7 @@ public class UntarArchiveUtils {
 
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-    public static void unTarFile(String tarFile, File destFile, String fldName) {
+    public static void unTarFile(String tarFile, File destFile) {
         TarArchiveInputStream tis = null;
         String destFilepath = null;
         try {
@@ -35,7 +35,6 @@ public class UntarArchiveUtils {
                     destFilepath = destFile + File.separator
                             + "temp" + File.separator
                             + dtf.format(LocalDate.now()) + File.separator
-                            + fldName + File.separator
                             + splitName + File.separator
                             + tarEntry.getName();
                     File outputFile = new File(destFilepath);
