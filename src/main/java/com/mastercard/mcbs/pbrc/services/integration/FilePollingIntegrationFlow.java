@@ -1,4 +1,4 @@
-package com.mastercard.filewatcherservice.integration;
+package com.mastercard.mcbs.pbrc.services.integration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

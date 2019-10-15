@@ -1,4 +1,4 @@
-package com.mastercard.filewatcherservice.constants;
+package com.mastercard.mcbs.pbrc.services.constants;
 
 public class ExceptionConstant {
 

@@ -1,6 +1,6 @@
-package com.mastercard.filewatcherservice.exception;
+package com.mastercard.mcbs.pbrc.services.exception;
 
-import com.mastercard.filewatcherservice.constants.ExceptionConstant;
+import com.mastercard.mcbs.pbrc.services.constants.ExceptionConstant;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.mastercard.filewatcherservice.exception;
+package com.mastercard.mcbs.pbrc.services.exception;
 
 import lombok.Data;
 

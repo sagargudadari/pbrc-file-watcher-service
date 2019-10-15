@@ -1,7 +1,7 @@
-package com.mastercard.filewatcherservice.batch;
+package com.mastercard.mcbs.pbrc.services.batch;
 
-import com.mastercard.filewatcherservice.entity.FileDetail;
-import com.mastercard.filewatcherservice.repository.FileDetailRepository;
+import com.mastercard.mcbs.pbrc.services.entity.FileDetail;
+import com.mastercard.mcbs.pbrc.services.repository.FileDetailRepository;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

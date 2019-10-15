@@ -1,6 +1,6 @@
-package com.mastercard.filewatcherservice.batch;
+package com.mastercard.mcbs.pbrc.services.batch;
 
-import com.mastercard.filewatcherservice.entity.FileDetail;
+import com.mastercard.mcbs.pbrc.services.entity.FileDetail;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;

@@ -1,12 +1,12 @@
-package com.mastercard.filewatcherservice.service;
+package com.mastercard.mcbs.pbrc.services.service;
 
-import com.mastercard.filewatcherservice.constants.ExceptionConstant;
-import com.mastercard.filewatcherservice.entity.FileDetail;
-import com.mastercard.filewatcherservice.entity.FileStatus;
-import com.mastercard.filewatcherservice.exception.ResourceNotFoundException;
-import com.mastercard.filewatcherservice.model.TableNameCheckResult;
-import com.mastercard.filewatcherservice.repository.FileDetailRepository;
-import com.mastercard.filewatcherservice.utils.UntarArchiveUtils;
+import com.mastercard.mcbs.pbrc.services.constants.ExceptionConstant;
+import com.mastercard.mcbs.pbrc.services.entity.FileDetail;
+import com.mastercard.mcbs.pbrc.services.entity.FileStatus;
+import com.mastercard.mcbs.pbrc.services.exception.ResourceNotFoundException;
+import com.mastercard.mcbs.pbrc.services.model.TableNameCheckResult;
+import com.mastercard.mcbs.pbrc.services.repository.FileDetailRepository;
+import com.mastercard.mcbs.pbrc.services.utils.UntarArchiveUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.kie.api.runtime.KieContainer;

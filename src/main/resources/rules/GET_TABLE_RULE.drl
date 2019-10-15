@@ -1,5 +1,5 @@
 package rules
-import com.mastercard.filewatcherservice.model.TableNameCheckResult;
+import com.mastercard.mcbs.pbrc.services.model.TableNameCheckResult;
 
 rule "Get table name GCMS_TRANSACTION_DETAIL"
 	when
@@ -13,4 +13,32 @@ rule "Get table name GCMS_BILLING_EVENT_DETAIL"
 		tableNameCheckResultObject: TableNameCheckResult(type=="GCMSBE")
 	then
 		tableNameCheckResultObject.setTargetTableName("GCMS_BILLING_EVENT_DETAIL");
+	end
+
+rule "Get table name AUTH_TRANSACTION_DETAIL"
+	when
+		tableNameCheckResultObject: TableNameCheckResult(type=="AUTHBA")
+	then
+		tableNameCheckResultObject.setTargetTableName("AUTH_TRANSACTION_DETAIL");
+	end
+
+rule "Get table name AUTH_BILLING_EVENT_DETAIL"
+	when
+		tableNameCheckResultObject: TableNameCheckResult(type=="AUTHBE")
+	then
+		tableNameCheckResultObject.setTargetTableName("AUTH_BILLING_EVENT_DETAIL");
+	end
+
+rule "Get table name DEBIT_TRANSACTION_DETAIL"
+	when
+		tableNameCheckResultObject: TableNameCheckResult(type=="DEBITBA")
+	then
+		tableNameCheckResultObject.setTargetTableName("DEBIT_TRANSACTION_DETAIL");
+	end
+
+rule "Get table name DEBIT_BILLING_EVENT_DETAIL"
+	when
+		tableNameCheckResultObject: TableNameCheckResult(type=="DEBITBE")
+	then
+		tableNameCheckResultObject.setTargetTableName("DEBIT_BILLING_EVENT_DETAIL");
 	end

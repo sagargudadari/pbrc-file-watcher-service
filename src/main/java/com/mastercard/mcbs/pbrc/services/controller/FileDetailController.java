@@ -1,9 +1,9 @@
-package com.mastercard.filewatcherservice.controller;
+package com.mastercard.mcbs.pbrc.services.controller;
 
 
-import com.mastercard.filewatcherservice.entity.FileDetail;
-import com.mastercard.filewatcherservice.exception.ResourceNotFoundException;
-import com.mastercard.filewatcherservice.service.FileDetailService;
+import com.mastercard.mcbs.pbrc.services.entity.FileDetail;
+import com.mastercard.mcbs.pbrc.services.exception.ResourceNotFoundException;
+import com.mastercard.mcbs.pbrc.services.service.FileDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

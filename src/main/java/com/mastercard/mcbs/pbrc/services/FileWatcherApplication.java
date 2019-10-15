@@ -1,4 +1,4 @@
-package com.mastercard.filewatcherservice;
+package com.mastercard.mcbs.pbrc.services;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;

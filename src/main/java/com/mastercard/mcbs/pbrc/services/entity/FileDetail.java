@@ -1,4 +1,4 @@
-package com.mastercard.filewatcherservice.entity;
+package com.mastercard.mcbs.pbrc.services.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

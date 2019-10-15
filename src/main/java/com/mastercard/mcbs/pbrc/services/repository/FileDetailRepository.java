@@ -1,7 +1,7 @@
-package com.mastercard.filewatcherservice.repository;
+package com.mastercard.mcbs.pbrc.services.repository;
 
-import com.mastercard.filewatcherservice.entity.FileDetail;
-import com.mastercard.filewatcherservice.entity.FileStatus;
+import com.mastercard.mcbs.pbrc.services.entity.FileDetail;
+import com.mastercard.mcbs.pbrc.services.entity.FileStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

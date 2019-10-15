@@ -1,4 +1,4 @@
-package com.mastercard.filewatcherservice.exception;
+package com.mastercard.mcbs.pbrc.services.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
